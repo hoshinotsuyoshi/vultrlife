@@ -1,9 +1,7 @@
 module Vultrlife
   class Account
     class Configuration
-      def api_key=(api_key)
-        @api_key = api_key
-      end
+      attr_writer :api_key
     end
   end
 end
