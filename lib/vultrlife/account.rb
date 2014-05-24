@@ -12,5 +12,15 @@ module Vultrlife
       yield @config
       self
     end
+
+    def server_create!(&b)
+      yield Server::Configuration.new
+      self
+    end
+
+    class Server
+      class Configuration
+      end
+    end
   end
 end
