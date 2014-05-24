@@ -23,12 +23,4 @@ describe Vultrlife::Account do
       end
     end
   end
-
-  describe '#api_key=' do
-    context 'given a arg' do
-      it 'raises error' do
-        expect{ account.api_key = 'my_api_key' }.to raise_error
-      end
-    end
-  end
 end
