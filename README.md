@@ -1,0 +1,44 @@
+vultrlife
+=========
+
+this is not work
+=========
+
+Vultr API account
+
+Usage:
+```
+require 'vultrlife'
+
+Vultrlife.configure do |config|
+  config.api_key = xxxxxxxxxxxxxxxxxxx
+end
+
+account = Vultrlife.account
+
+raise if account.servers.size.nonzero?
+
+server = account.server_create! do |server|
+  server.region = :tokyo
+  server.plan   = :starter
+  server.os     = :custom
+  server.ipxe_chain_url = 'http://......'
+
+  server.verify_plan do |verify|
+    verify.costs_under = 7
+    verify.vcpu_count  = 1
+    verify.ram         = 1024
+    verify.disk        = 30
+    verify.bandwidth   = 2
+  end
+end
+
+account.servers
+
+
+# this feature is big....
+server.ssh do
+  'your awesome command...'
+end
+
+```
