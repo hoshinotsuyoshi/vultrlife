@@ -10,11 +10,9 @@ Usage:
 ```
 require 'vultrlife'
 
-Vultrlife.configure do |config|
+account = Vultrlife::Account.new.configure do |config|
   config.api_key = xxxxxxxxxxxxxxxxxxx
 end
-
-account = Vultrlife.account
 
 raise if account.servers.size.nonzero?
 
