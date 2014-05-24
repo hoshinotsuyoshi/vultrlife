@@ -23,4 +23,12 @@ describe Vultrlife::Account do
       end
     end
   end
+
+  describe '#servers' do
+    context 'when the account has no servers' do
+      it 'returns empty' do
+        expect( account.servers ).to be_empty
+      end
+    end
+  end
 end

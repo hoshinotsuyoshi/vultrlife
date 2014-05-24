@@ -1,8 +1,11 @@
 require 'vultrlife/account/configuration'
 module Vultrlife
   class Account
+    attr_reader :servers
+
     def initialize
-      @config = Configuration.new
+      @config  = Configuration.new
+      @servers = []
     end
 
     def configure(&b)
