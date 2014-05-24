@@ -16,8 +16,18 @@ describe Vultrlife::Account do
           account.configure do |config|
             config.api_key = 'my_api_key'
           end
-        end.to change{ account.instance_variable_get(:@api_key) }
-        .from(nil).to('my_api_key')
+        end.to change {
+          config = account.instance_variable_get(:@config)
+          config.instance_variable_get(:@api_key)
+        }.from(nil).to('my_api_key')
+      end
+    end
+  end
+
+  describe '#api_key=' do
+    context 'given a arg' do
+      it 'raises error' do
+        expect{ account.api_key = 'my_api_key' }.to raise_error
       end
     end
   end

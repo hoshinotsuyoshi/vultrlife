@@ -1,12 +1,18 @@
 module Vultrlife
   class Account
-    def configure(&b)
-      yield self
-      self
+    class Configuration
+      def api_key=(api_key)
+        @api_key = api_key
+      end
     end
 
-    def api_key=(api_key)
-      @api_key = api_key
+    def initialize
+      @config = Configuration.new
+    end
+
+    def configure(&b)
+      yield @config
+      self
     end
   end
 end
