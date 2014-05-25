@@ -54,7 +54,7 @@ describe Vultrlife::Account do
 
       it 'returns a new Vultrlife::Server' do
         config = double(:config)
-        Vultrlife::Server::Configuration.should_receive(:new).and_return(config)
+        Vultrlife::Server::Configuration.should_receive(:new).with(account).and_return(config)
         config.should_receive(:setting_a=).with('setting_a')
         config.should_receive(:setting_b=).with('setting_b')
 

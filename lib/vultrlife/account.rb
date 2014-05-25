@@ -14,9 +14,9 @@ module Vultrlife
     end
 
     def server_create!(&b)
-      yield Server::Configuration.new
-      #FIXME
-      Server.new
+      config = Server::Configuration.new(self)
+      yield config
+      Server.create!(config)
     end
   end
 end
