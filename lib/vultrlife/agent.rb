@@ -1,12 +1,26 @@
+require 'open-uri'
+require 'json'
+
 module Vultrlife
   module Agent
+    API_HOST = 'https://api.vultr.com'
     def self.fetch_all_plans
+      #/v1/plans/list
+      #GET - public
+
+      endpoint = '/v1/plans/list'
+      json = open("#{API_HOST}#{endpoint}").read
+      JSON.parse json
     end
 
     def self.fetch_all_regions
+      #/v1/regions/list
+      #GET - public
     end
 
     def self.fetch_availability(dcid)
+      #/v1/regions/availability
+      #GET - public
     end
 
     def self.post_create(config)
