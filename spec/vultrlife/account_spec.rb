@@ -30,8 +30,8 @@ describe Vultrlife::Account do
         config.api_key = 'my_api_key'
       end
     end
-    it 'calls Vultrlife::Agent.fetch_server_list' do
-      expect(Vultrlife::Agent).to receive(:fetch_server_list).with('my_api_key')
+    it 'calls Vultrlife::Server.show_servers' do
+      expect(Vultrlife::Server).to receive(:show_servers).with('my_api_key')
 
       account.servers
     end

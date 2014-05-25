@@ -1,5 +1,5 @@
 module Vultrlife
-  class Server
+  class Server < Hash
     class Configuration
       attr_accessor :region, :plan, :os, :ipxe_chain_url, :api_key
 

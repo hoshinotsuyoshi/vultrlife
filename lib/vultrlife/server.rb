@@ -1,9 +1,10 @@
 require 'vultrlife/server/configuration'
 module Vultrlife
-  class Server
+  class Server < Hash
     attr_reader :subid
-    def initialize(subid)
+    def initialize(subid, hash=nil)
       @subid = subid
+      self.merge!(hash) if hash
     end
 
     def self.create!(config)
@@ -12,7 +13,10 @@ module Vultrlife
     end
 
     def self.show_servers(api_key)
-      Agent.fetch_server_list(api_key)
+      servers = Agent.fetch_server_list(api_key)
+      servers = servers.map do |subid, attributes|
+        self.new(subid,attributes)
+      end
     end
 
     private
