@@ -30,6 +30,23 @@ describe Vultrlife::Server do
         expect(servers.first).to be_a Vultrlife::Server
       end
     end
+
+    context 'when no servers exist' do
+      it 'returns []' do
+        pending
+      end
+    end
+  end
+
+  describe '#destroy!' do
+    context 'when successfully' do
+      it 'returns subid' do
+        server = Vultrlife::Server.new('111111')
+
+        Vultrlife::Agent.should_receive(:post_destroy).with('111111')
+        expect(server.destroy!).to eq '111111'
+      end
+    end
   end
 
   describe '.create!' do

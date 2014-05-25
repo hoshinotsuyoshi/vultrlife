@@ -7,6 +7,11 @@ module Vultrlife
       self.merge!(hash) if hash
     end
 
+    def destroy!
+      Agent.post_destroy(@subid)
+      @subid
+    end
+
     def self.create!(config)
       self.validate_config(config)
       self.exec_create
