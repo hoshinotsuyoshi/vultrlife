@@ -16,6 +16,10 @@ module Vultrlife
     def self.fetch_all_regions
       #/v1/regions/list
       #GET - public
+
+      endpoint = '/v1/regions/list'
+      json = open("#{API_HOST}#{endpoint}").read
+      JSON.parse json
     end
 
     def self.fetch_availability(dcid)

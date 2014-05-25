@@ -18,4 +18,22 @@ describe Vultrlife::Agent do
       end
     end
   end
+
+  describe '.fetch_all_regions' do
+    context 'when API responds normally' do
+      let(:v1_regions) do
+        File.read('spec/fixtures/v1_regions.json')
+      end
+
+      it 'returns regions(Hash)' do
+        WebMock.stub_request(:get, 'https://api.vultr.com/v1/regions/list')
+        .to_return(:body => v1_regions)
+
+        response = Vultrlife::Agent.fetch_all_regions
+        expect(response.keys.sort).to eq(
+          %w(1 19 2 24 25 3 4 5 6 7 8 9)
+        )
+      end
+    end
+  end
 end
