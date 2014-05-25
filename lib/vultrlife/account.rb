@@ -3,7 +3,6 @@ module Vultrlife
   class Account
     def initialize
       @config  = Configuration.new
-      @servers = []
     end
 
     def servers
