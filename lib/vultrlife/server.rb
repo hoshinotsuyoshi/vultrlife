@@ -2,6 +2,12 @@ require 'vultrlife/server/configuration'
 module Vultrlife
   class Server
     def self.create!(config)
+      self.validate_config(config)
+      self.new
+    end
+
+    private
+    def self.validate_config(config)
       plans = Vultrlife::Agent.fetch_all_plans
       plans = plans.select{|key,value| config.plan == value['name'] }
 
@@ -14,8 +20,6 @@ module Vultrlife
       available_plans = Vultrlife::Agent.fetch_availability(regions.keys.first)
 
       raise if not available_plans.include?(plans.keys.first.to_i)
-
-      self.new
     end
   end
 end
