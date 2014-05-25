@@ -2,13 +2,14 @@ require 'vultrlife/server/configuration'
 module Vultrlife
   class Server < Hash
     attr_reader :subid
-    def initialize(subid, hash=nil)
+    def initialize(subid, account=nil, hash=nil)
       @subid = subid
+      @account = account
       self.merge!(hash) if hash
     end
 
-    def destroy!(config)
-      Agent.post_destroy(subid: @subid, api_key: config.api_key)
+    def destroy!
+      Agent.post_destroy(subid: @subid, api_key: @account.config.api_key)
       self['destroyed'] = true
       @subid
     end
@@ -22,10 +23,10 @@ module Vultrlife
       self.exec_create
     end
 
-    def self.show_servers(api_key)
-      servers = Agent.fetch_server_list(api_key)
+    def self.show_servers(account)
+      servers = Agent.fetch_server_list(account.config.api_key)
       servers = servers.map do |subid, attributes|
-        self.new(subid,attributes)
+        self.new(subid, account, attributes)
       end
     end
 

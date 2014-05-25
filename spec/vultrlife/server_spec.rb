@@ -4,6 +4,11 @@ require 'json'
 describe Vultrlife::Server do
   describe '.show_servers' do
     context 'when some servers exist' do
+      let(:account) do
+        Vultrlife::Account.new.configure do |config|
+          config.api_key = 'APIKEY'
+        end
+      end
       it 'returns Server array' do
         server_hash = {"1356867"=>
                        {"os"=>"CentOS 6 x64",
@@ -24,7 +29,7 @@ describe Vultrlife::Server do
         }
         Vultrlife::Agent.should_receive(:fetch_server_list).with('APIKEY').and_return(server_hash)
 
-        servers = Vultrlife::Server.show_servers('APIKEY')
+        servers = Vultrlife::Server.show_servers(account)
         expect(servers.size).to eq 1
         expect(servers.first).to include("os"=>"CentOS 6 x64")
         expect(servers.first).to be_a Vultrlife::Server
@@ -39,20 +44,15 @@ describe Vultrlife::Server do
   end
 
   describe '#destroy!' do
-    let(:config) do
-      config = Vultrlife::Server::Configuration.new
-      config.instance_eval do
-        @api_key        = 'API_KEY'
-      end
-      config
-    end
-
     context 'when successfully' do
       it 'returns subid' do
-        server = Vultrlife::Server.new('111111')
+        account = Vultrlife::Account.new.configure do |config|
+          config.api_key = 'API_KEY'
+        end
+        server  = Vultrlife::Server.new('111111', account)
 
         Vultrlife::Agent.should_receive(:post_destroy).with(subid: '111111', api_key: 'API_KEY')
-        expect(server.destroy!(config)).to eq '111111'
+        expect(server.destroy!).to eq '111111'
         expect(server).to be_destroyed
       end
     end

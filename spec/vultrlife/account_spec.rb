@@ -25,13 +25,8 @@ describe Vultrlife::Account do
   end
 
   describe '#servers' do
-    before do
-      account.configure do |config|
-        config.api_key = 'my_api_key'
-      end
-    end
     it 'calls Vultrlife::Server.show_servers' do
-      expect(Vultrlife::Server).to receive(:show_servers).with('my_api_key')
+      expect(Vultrlife::Server).to receive(:show_servers).with(account)
 
       account.servers
     end

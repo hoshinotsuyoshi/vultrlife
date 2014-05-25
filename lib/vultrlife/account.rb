@@ -1,12 +1,13 @@
 require 'vultrlife/account/configuration'
 module Vultrlife
   class Account
+    attr_reader :config
     def initialize
       @config  = Configuration.new
     end
 
     def servers
-      Server.show_servers(@config.api_key)
+      Server.show_servers(self)
     end
 
     def configure(&b)
