@@ -46,7 +46,7 @@ describe Vultrlife::Account do
         config.should_receive(:setting_a=).with('setting_a')
         config.should_receive(:setting_b=).with('setting_b')
 
-        account.server_create! do |server|
+        server = account.server_create! do |server|
           server.setting_a = 'setting_a'
           server.setting_b = 'setting_b'
         end
@@ -102,6 +102,28 @@ describe Vultrlife::Server::Configuration do
         end.to change {
           config.instance_variable_get(:@ipxe_chain_url)
         }.from(nil).to('http://example.com/script.txt')
+      end
+    end
+  end
+
+  describe '#verify_plan' do
+    context 'given block' do
+      it 'yields Vultrlife::PlanVerifier' do
+        verifier = double(:verifier)
+        Vultrlife::PlanVerifier.should_receive(:new).and_return(verifier)
+        verifier.should_receive(:costs_at_most=).with(7)
+        verifier.should_receive(:vcpu_count=   ).with(1)
+        verifier.should_receive(:ram=          ).with(1024)
+        verifier.should_receive(:disk=         ).with(30)
+        verifier.should_receive(:bandwidth=    ).with(2)
+
+        config.verify_plan do |verify|
+          verify.costs_at_most = 7
+          verify.vcpu_count    = 1
+          verify.ram           = 1024
+          verify.disk          = 30
+          verify.bandwidth     = 2
+        end
       end
     end
   end

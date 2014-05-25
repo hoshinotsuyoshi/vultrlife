@@ -23,11 +23,11 @@ server = account.server_create! do |server|
   server.ipxe_chain_url = 'http://......'
 
   server.verify_plan do |verify|
-    verify.costs_under = 7
-    verify.vcpu_count  = 1
-    verify.ram         = 1024
-    verify.disk        = 30
-    verify.bandwidth   = 2
+    verify.costs_at_most = 7
+    verify.vcpu_count    = 1
+    verify.ram           = 1024
+    verify.disk          = 30
+    verify.bandwidth     = 2
   end
 end
 
