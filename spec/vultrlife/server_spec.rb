@@ -39,12 +39,21 @@ describe Vultrlife::Server do
   end
 
   describe '#destroy!' do
+    let(:config) do
+      config = Vultrlife::Server::Configuration.new
+      config.instance_eval do
+        @api_key        = 'API_KEY'
+      end
+      config
+    end
+
     context 'when successfully' do
       it 'returns subid' do
         server = Vultrlife::Server.new('111111')
 
-        Vultrlife::Agent.should_receive(:post_destroy).with('111111')
-        expect(server.destroy!).to eq '111111'
+        Vultrlife::Agent.should_receive(:post_destroy).with(subid: '111111', api_key: 'API_KEY')
+        expect(server.destroy!(config)).to eq '111111'
+        expect(server).to be_destroyed
       end
     end
   end

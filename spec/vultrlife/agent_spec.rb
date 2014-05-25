@@ -111,4 +111,22 @@ describe Vultrlife::Agent do
       end
     end
   end
+
+  describe '.post_destroy' do
+    context 'given valid option' do
+      context 'when API responds normally' do
+        it 'returns server\'s sub_id(Hash)' do
+          WebMock.stub_request(:post, 'https://api.vultr.com/v1/server/destroy?api_key=APIKEY')
+          .with(body: 'SUBID=111111')
+          .to_return(body: %q{{"SUBID" : "111111"}})
+
+          option = {subid: '111111', api_key: 'APIKEY'}
+          response = Vultrlife::Agent.post_destroy(option)
+          expect(response).to eq(
+            {'SUBID' => '111111'}
+          )
+        end
+      end
+    end
+  end
 end
