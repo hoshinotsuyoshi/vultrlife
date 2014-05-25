@@ -51,6 +51,20 @@ describe Vultrlife::Account do
           server.setting_b = 'setting_b'
         end
       end
+
+      it 'returns a new Vultrlife::Server' do
+        config = double(:config)
+        Vultrlife::Server::Configuration.should_receive(:new).and_return(config)
+        config.should_receive(:setting_a=).with('setting_a')
+        config.should_receive(:setting_b=).with('setting_b')
+
+        server = account.server_create! do |server|
+          server.setting_a = 'setting_a'
+          server.setting_b = 'setting_b'
+        end
+
+        server.should be_a(Vultrlife::Server)
+      end
     end
   end
 end
