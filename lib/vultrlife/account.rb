@@ -6,7 +6,7 @@ module Vultrlife
     end
 
     def servers
-      Vultrlife::Agent.fetch_server_list(@config.api_key)
+      Server.show_servers(@config.api_key)
     end
 
     def configure(&b)
