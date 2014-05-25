@@ -36,4 +36,22 @@ describe Vultrlife::Agent do
       end
     end
   end
+
+  describe '.fetch_availability' do
+    context 'when API responds normally' do
+      let(:v1_availability_of_tokyo) do
+        File.read('spec/fixtures/v1_availability_of_tokyo.json')
+      end
+
+      it 'returns available plans(Array)' do
+        WebMock.stub_request(:get, 'https://api.vultr.com/v1/regions/availability?DCID=25')
+        .to_return(:body => v1_availability_of_tokyo)
+
+        response = Vultrlife::Agent.fetch_availability('25') # 25 -> tokyo
+        expect(response.sort).to eq(
+          %w(31 32 33 34 47 48 49 50 51 52 53 54 55 8)
+        )
+      end
+    end
+  end
 end

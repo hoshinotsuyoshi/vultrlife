@@ -25,6 +25,10 @@ module Vultrlife
     def self.fetch_availability(dcid)
       #/v1/regions/availability
       #GET - public
+
+      endpoint = "/v1/regions/availability?DCID=#{dcid}"
+      json = open("#{API_HOST}#{endpoint}").read
+      JSON.parse(json).map(&:to_s)
     end
 
     def self.post_create(config)

@@ -33,13 +33,14 @@ module Vultrlife
 
       raise if not oss.keys.size == 1
 
-      available_plans = Vultrlife::Agent.fetch_availability(regions.keys.first)
+      dcid = regions.keys.first
+      available_plans = Vultrlife::Agent.fetch_availability(dcid)
 
       raise if not available_plans.include?(plans.keys.first.to_i)
 
       @option = {
         plan: plans.keys.first.to_i,
-        region: regions.keys.first.to_i,
+        region: dcid.to_i,
         os:   oss.keys.first.to_i,
       }
     end
