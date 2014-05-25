@@ -54,4 +54,25 @@ describe Vultrlife::Agent do
       end
     end
   end
+
+  describe '.post_create' do
+    context 'given valid option' do
+      context 'when API responds normally' do
+        it 'returns server\'s sub_id(Hash)' do
+          data =  "DCID=25"
+          data << "&VPSPLANID=31"
+          data << "&OSID=127"
+          WebMock.stub_request(:post, 'https://api.vultr.com/v1/server/create?api_key=APIKEY')
+          .with(body: data)
+          .to_return(body: %q{{"SUBID" : "1312965"}})
+
+          option = {plan: 31, region: 25, os: 127, api_key: 'APIKEY'}
+          response = Vultrlife::Agent.post_create(option)
+          expect(response).to eq(
+            {'SUBID' => '1312965'}
+          )
+        end
+      end
+    end
+  end
 end
