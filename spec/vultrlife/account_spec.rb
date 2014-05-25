@@ -40,7 +40,7 @@ describe Vultrlife::Account do
     end
 
     context 'given a block' do
-      it 'yields Vultrlife::Account::Server::Configuration' do
+      it 'yields Vultrlife::Server::Configuration' do
         config = double(:config)
         Vultrlife::Server::Configuration.should_receive(:new).and_return(config)
         config.should_receive(:setting_a=).with('setting_a')
