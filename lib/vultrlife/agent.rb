@@ -32,6 +32,15 @@ module Vultrlife
       JSON.parse(json).map(&:to_s)
     end
 
+    def self.fetch_server_list(api_key)
+      #/v1/server/list
+      #GET - account
+
+      endpoint = "/v1/server/list?api_key=#{api_key}"
+      json = open("#{API_HOST}#{endpoint}").read
+      JSON.parse json
+    end
+
     def self.post_create(option)
       #/v1/server/create
       #POST - account
