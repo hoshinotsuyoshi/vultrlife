@@ -1,10 +1,9 @@
 vultrlife
 =========
 
-this is not work
-=========
+Vultr VPS API wrapper
 
-Vultr API account
+### this does not work yet
 
 Usage:
 ```
