@@ -6,7 +6,7 @@ describe Vultrlife::Server do
     let(:config) do
       config = Vultrlife::Server::Configuration.new
       config.instance_eval do
-        @plan           = '2048 MB RAM,40 GB SSD,0.30 TB BW'
+        @plan           = '768 MB RAM,15 GB SSD,0.10 TB BW'
         @region         = :tokyo
         @os             = 'CentOS 6 x64'
       end
@@ -36,7 +36,7 @@ describe Vultrlife::Server do
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:fetch_all_os).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
-          Vultrlife::Agent.should_receive(:post_create).with(plan: 8, region: 25, os: 127).and_return("SUBID" => "1312965")
+          Vultrlife::Agent.should_receive(:post_create).with(plan: 31, region: 25, os: 127).and_return("SUBID" => "1312965")
 
           server = Vultrlife::Server.create!(config)
           expect(server.subid).to eq(1312965)
