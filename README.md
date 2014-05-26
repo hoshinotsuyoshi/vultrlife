@@ -1,11 +1,24 @@
-vultrlife
-=========
+# Vultrlife
 
 Vultr VPS API wrapper
 
-### this does not work yet
+## Installation
+### *this does not work yet*
 
-Usage:
+Add this line to your application's Gemfile:
+
+    gem 'vultrlife'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install vultrlife
+
+## Usage
+
 ```
 require 'vultrlife'
 
@@ -39,3 +52,11 @@ server.ssh do
 end
 
 ```
+
+## Contributing
+
+1. Fork it ( http://github.com/<my-github-username>/vultrlife/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
