@@ -50,6 +50,9 @@ module Vultrlife
       body =  "DCID=#{option[:region]}"
       body << "&VPSPLANID=#{option[:plan]}"
       body << "&OSID=#{option[:os]}"
+      if option[:ipxe_chain_url]
+        body << "&ipxe_chain_url=#{option[:ipxe_chain_url]}"
+      end
       response = ''
 
       uri = URI.parse("#{API_HOST}#{endpoint}")

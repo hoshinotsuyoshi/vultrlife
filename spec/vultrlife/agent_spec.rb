@@ -110,6 +110,26 @@ describe Vultrlife::Agent do
         end
       end
     end
+
+    context 'given valid option with ipxe_chain_url(custom_os)' do
+      context 'when API responds normally' do
+        it 'returns server\'s sub_id(Hash)' do
+          data =  "DCID=25"
+          data << "&VPSPLANID=52"
+          data << "&OSID=159"
+          data << "&ipxe_chain_url=http://example.com/script.txt"
+          WebMock.stub_request(:post, 'https://api.vultr.com/v1/server/create?api_key=APIKEY')
+          .with(body: data)
+          .to_return(body: %q{{"SUBID" : "1312965"}})
+
+          option = {plan: 52, region: 25, os: 159, api_key: 'APIKEY', ipxe_chain_url: 'http://example.com/script.txt'}
+          response = Vultrlife::Agent.post_create(option)
+          expect(response).to eq(
+            {'SUBID' => '1312965'}
+          )
+        end
+      end
+    end
   end
 
   describe '.post_destroy' do

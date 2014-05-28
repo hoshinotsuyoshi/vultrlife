@@ -63,6 +63,10 @@ module Vultrlife
         os:      oss.keys.first.to_i,
         api_key: config.api_key,
       }
+
+      if config.ipxe_chain_url
+        @option[:ipxe_chain_url] = config.ipxe_chain_url
+      end
     end
   end
 end
