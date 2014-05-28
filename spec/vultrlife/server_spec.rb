@@ -76,7 +76,10 @@ describe Vultrlife::Server do
     end
 
     let(:centos_config) do
-      centos_config = Vultrlife::Server::Configuration.new
+      account = Vultrlife::Account.new.configure do |config|
+        config.api_key = 'API_KEY'
+      end
+      centos_config = Vultrlife::Server::Configuration.new(account)
       centos_config.instance_eval do
         @plan           = '768 MB RAM,15 GB SSD,0.10 TB BW'
         @region         = :tokyo
@@ -102,7 +105,10 @@ describe Vultrlife::Server do
     end
 
     let(:custom_os_config) do
-      custom_os_config = Vultrlife::Server::Configuration.new
+      account = Vultrlife::Account.new.configure do |config|
+        config.api_key = 'API_KEY'
+      end
+      custom_os_config = Vultrlife::Server::Configuration.new(account)
       custom_os_config.instance_eval do
         @plan           = '768 MB RAM,15 GB SSD,0.10 TB BW, Custom ISO'
         @region         = :tokyo
