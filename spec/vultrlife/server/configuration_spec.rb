@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 describe Vultrlife::Server::Configuration do
-  let(:config){ Vultrlife::Server::Configuration.new }
+  let(:config) do
+
+    account = Vultrlife::Account.new.configure do |config|
+      config.api_key = 'API_KEY'
+    end
+
+    Vultrlife::Server::Configuration.new(account)
+  end
 
   describe '#region=' do
     context 'given :tokyo' do
@@ -47,6 +54,18 @@ describe Vultrlife::Server::Configuration do
         end.to change {
           config.instance_variable_get(:@ipxe_chain_url)
         }.from(nil).to('http://example.com/script.txt')
+      end
+    end
+  end
+
+  describe '#api_key=' do
+    context 'given api_key' do
+      it 'sets @api_key the api_key' do
+        expect do
+          config.api_key = 'API_KEY'
+        end.to change {
+          config.instance_variable_get(:@api_key)
+        }.from(nil).to('API_KEY')
       end
     end
   end
