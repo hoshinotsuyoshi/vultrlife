@@ -108,6 +108,7 @@ describe Vultrlife::Server do
         @region         = :tokyo
         @os             = 'Custom'
         @api_key        = 'API_KEY'
+        @ipxe_chain_url = 'http://example.com/script.txt'
       end
       custom_os_config
     end
@@ -119,7 +120,9 @@ describe Vultrlife::Server do
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:fetch_all_os).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
-          Vultrlife::Agent.should_receive(:post_create).with(plan: 52, region: 25, os: 159, api_key: 'API_KEY').and_return("SUBID" => "1312965")
+          Vultrlife::Agent.should_receive(:post_create)
+          .with(plan: 52, region: 25, os: 159, api_key: 'API_KEY',ipxe_chain_url: 'http://example.com/script.txt')
+          .and_return("SUBID" => "1312965")
 
           server = Vultrlife::Server.create!(custom_os_config)
           expect(server.subid).to eq(1312965)
