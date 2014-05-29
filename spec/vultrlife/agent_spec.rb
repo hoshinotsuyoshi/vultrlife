@@ -37,6 +37,24 @@ describe Vultrlife::Agent do
     end
   end
 
+  describe '.fetch_all_oss' do
+    context 'when API responds normally' do
+      let(:v1_os) do
+        File.read('spec/fixtures/v1_os.json')
+      end
+
+      it 'returns oss(Hash)' do
+        WebMock.stub_request(:get, 'https://api.vultr.com/v1/os/list')
+        .to_return(:body => v1_os)
+
+        response = Vultrlife::Agent.fetch_all_oss
+        expect(response.keys.sort).to eq(
+          %w(124 127 128 129 131 138 139 140 147 148 149 150 151 152 159 160 161 162 163 164)
+        )
+      end
+    end
+  end
+
   describe '.fetch_availability' do
     context 'when API responds normally' do
       let(:v1_availability_of_tokyo) do

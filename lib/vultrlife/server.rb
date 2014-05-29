@@ -47,13 +47,13 @@ module Vultrlife
 
       raise if not regions.keys.size == 1
 
-      oss = Agent.fetch_all_os
+      oss = Agent.fetch_all_oss
       oss = oss.select{|key,value| config.os == value['name'] }
 
       raise if not oss.keys.size == 1
 
       dcid = regions.keys.first
-      available_plans = Agent.fetch_availability(dcid)
+      available_plans = Agent.fetch_availability(dcid).map(&:to_i)
 
       raise if not available_plans.include?(plans.keys.first.to_i)
 

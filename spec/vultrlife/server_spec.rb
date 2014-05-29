@@ -94,7 +94,7 @@ describe Vultrlife::Server do
         it 'check plans, availability, region' do
           Vultrlife::Agent.should_receive(:fetch_all_plans).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
-          Vultrlife::Agent.should_receive(:fetch_all_os).and_return(v1_os)
+          Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
           Vultrlife::Agent.should_receive(:post_create).with(plan: 31, region: 25, os: 127, api_key: 'API_KEY').and_return("SUBID" => "1312965")
 
@@ -124,7 +124,7 @@ describe Vultrlife::Server do
         it 'check plans, availability, region' do
           Vultrlife::Agent.should_receive(:fetch_all_plans).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
-          Vultrlife::Agent.should_receive(:fetch_all_os).and_return(v1_os)
+          Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
           Vultrlife::Agent.should_receive(:post_create)
           .with(plan: 52, region: 25, os: 159, api_key: 'API_KEY',ipxe_chain_url: 'http://example.com/script.txt')

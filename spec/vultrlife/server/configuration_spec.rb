@@ -4,7 +4,6 @@ describe Vultrlife::Server::Configuration do
   let(:config) do
 
     account = Vultrlife::Account.new.configure do |config|
-      config.api_key = 'API_KEY'
     end
 
     Vultrlife::Server::Configuration.new(account)

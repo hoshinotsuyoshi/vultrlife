@@ -23,6 +23,15 @@ module Vultrlife
       JSON.parse json
     end
 
+    def self.fetch_all_oss
+      #/v1/os/list
+      #GET - public
+
+      endpoint = '/v1/os/list'
+      json = open("#{API_HOST}#{endpoint}").read
+      JSON.parse json
+    end
+
     def self.fetch_availability(dcid)
       #/v1/regions/availability
       #GET - public
