@@ -20,28 +20,28 @@ module Vultrlife
       JSON.parse(response.body)
     end
 
-    def self.fetch_all_plans
+    def self.plans_list
       #/v1/plans/list
       #GET - public
 
       self.http_get('/v1/plans/list')
     end
 
-    def self.fetch_all_regions
+    def self.regions_list
       #/v1/regions/list
       #GET - public
 
       self.http_get('/v1/regions/list')
     end
 
-    def self.fetch_all_oss
+    def self.os_list
       #/v1/os/list
       #GET - public
 
       self.http_get('/v1/os/list')
     end
 
-    def self.fetch_availability(dcid)
+    def self.regions_availability(dcid)
       #/v1/regions/availability
       #GET - public
 
@@ -49,7 +49,7 @@ module Vultrlife
       .map(&:to_s)
     end
 
-    def self.fetch_server_list(api_key)
+    def self.server_list(api_key)
       #/v1/server/list
       #GET - account
 
@@ -77,14 +77,14 @@ module Vultrlife
       end
     end
 
-    def self.post_create(body)
+    def self.server_create(body)
       #/v1/server/create
       #POST - account
 
       self.http_post('/v1/server/create', body)
     end
 
-    def self.post_destroy(body)
+    def self.server_destroy(body)
       #/v1/server/destroy
       #POST - account
 

@@ -9,7 +9,7 @@ module Vultrlife
     end
 
     def destroy!
-      Agent.post_destroy(SUBID: @subid, api_key: @account.config.api_key)
+      Agent.server_destroy(SUBID: @subid, api_key: @account.config.api_key)
       self['destroyed'] = true
       @subid
     end
@@ -24,7 +24,7 @@ module Vultrlife
     end
 
     def self.show_servers(account)
-      servers = Agent.fetch_server_list(account.config.api_key)
+      servers = Agent.server_list(account.config.api_key)
       servers = servers.map do |subid, attributes|
         self.new(subid, account, attributes)
       end
@@ -32,28 +32,28 @@ module Vultrlife
 
     private
     def self.exec_create
-      subid_hash = Agent.post_create(@option)
+      subid_hash = Agent.server_create(@option)
       self.new(subid_hash['SUBID'].to_i)
     end
 
     def self.validate_config(config)
-      plans = Agent.fetch_all_plans
+      plans = Agent.plans_list
       plans = plans.select{|key,value| config.plan == value['name'] }
 
       raise if not plans.size == 1
 
-      regions = Agent.fetch_all_regions
+      regions = Agent.regions_list
       regions = regions.select{|key,value| config.region.to_s == value['name'].downcase }
 
       raise if not regions.keys.size == 1
 
-      oss = Agent.fetch_all_oss
+      oss = Agent.os_list
       oss = oss.select{|key,value| config.os == value['name'] }
 
       raise if not oss.keys.size == 1
 
       dcid = regions.keys.first
-      available_plans = Agent.fetch_availability(dcid).map(&:to_i)
+      available_plans = Agent.regions_availability(dcid).map(&:to_i)
 
       raise if not available_plans.include?(plans.keys.first.to_i)
 
