@@ -1,4 +1,3 @@
-require 'open-uri'
 require 'json'
 require 'net/https'
 
@@ -9,45 +8,80 @@ module Vultrlife
       #/v1/plans/list
       #GET - public
 
+      response = ''
       endpoint = '/v1/plans/list'
-      json = open("#{API_HOST}#{endpoint}").read
-      JSON.parse json
+      uri = URI.parse("#{API_HOST}#{endpoint}")
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      https.start{|https|
+        response = https.get(uri.path)
+      }
+
+      JSON.parse(response.body)
     end
 
     def self.fetch_all_regions
       #/v1/regions/list
       #GET - public
 
+      response = ''
       endpoint = '/v1/regions/list'
-      json = open("#{API_HOST}#{endpoint}").read
-      JSON.parse json
+      uri = URI.parse("#{API_HOST}#{endpoint}")
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      https.start{|https|
+        response = https.get(uri.path)
+      }
+
+      JSON.parse(response.body)
     end
 
     def self.fetch_all_oss
       #/v1/os/list
       #GET - public
 
+      response = ''
       endpoint = '/v1/os/list'
-      json = open("#{API_HOST}#{endpoint}").read
-      JSON.parse json
+      uri = URI.parse("#{API_HOST}#{endpoint}")
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      https.start{|https|
+        response = https.get(uri.path)
+      }
+
+      JSON.parse(response.body)
     end
 
     def self.fetch_availability(dcid)
       #/v1/regions/availability
       #GET - public
 
-      endpoint = "/v1/regions/availability?DCID=#{dcid}"
-      json = open("#{API_HOST}#{endpoint}").read
-      JSON.parse(json).map(&:to_s)
+      response = ''
+      endpoint = "/v1/regions/availability"
+      uri = URI.parse("#{API_HOST}#{endpoint}")
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      https.start{|https|
+        response = https.get(uri.path + "?DCID=#{dcid}")
+      }
+
+      JSON.parse(response.body).map(&:to_s)
     end
 
     def self.fetch_server_list(api_key)
       #/v1/server/list
       #GET - account
 
-      endpoint = "/v1/server/list?api_key=#{api_key}"
-      json = open("#{API_HOST}#{endpoint}").read
-      JSON.parse json
+      response = ''
+      endpoint = "/v1/server/list"
+      uri = URI.parse("#{API_HOST}#{endpoint}")
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      https.start{|https|
+        response = https.get(uri.path + "?api_key=#{api_key}")
+      }
+
+      JSON.parse(response.body)
     end
 
     def self.post_create(option)
