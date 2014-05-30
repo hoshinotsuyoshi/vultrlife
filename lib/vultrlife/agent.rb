@@ -20,7 +20,7 @@ module Vultrlife
       JSON.parse(response.body)
     end
 
-    def self.fetch_all_plans
+    def self.plans_list
       #/v1/plans/list
       #GET - public
 

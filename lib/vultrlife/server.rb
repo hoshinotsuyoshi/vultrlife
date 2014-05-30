@@ -37,7 +37,7 @@ module Vultrlife
     end
 
     def self.validate_config(config)
-      plans = Agent.fetch_all_plans
+      plans = Agent.plans_list
       plans = plans.select{|key,value| config.plan == value['name'] }
 
       raise if not plans.size == 1

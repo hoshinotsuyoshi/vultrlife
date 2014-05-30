@@ -92,7 +92,7 @@ describe Vultrlife::Server do
     context 'given a config for CentOS' do
       context 'the instance has a valid specific @plan, @region, @os' do
         it 'check plans, availability, region' do
-          Vultrlife::Agent.should_receive(:fetch_all_plans).and_return(v1_plans)
+          Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
@@ -122,7 +122,7 @@ describe Vultrlife::Server do
     context 'given a config for custom_os' do
       context 'the instance has a valid specific @plan, @region, @os' do
         it 'check plans, availability, region' do
-          Vultrlife::Agent.should_receive(:fetch_all_plans).and_return(v1_plans)
+          Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
           Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
