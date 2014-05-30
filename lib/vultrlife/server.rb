@@ -58,9 +58,9 @@ module Vultrlife
       raise if not available_plans.include?(plans.keys.first.to_i)
 
       @option = {
-        plan:    plans.keys.first.to_i,
-        region:  dcid.to_i,
-        os:      oss.keys.first.to_i,
+        VPSPLANID:    plans.keys.first.to_i,
+        DCID:  dcid.to_i,
+        OSID:      oss.keys.first.to_i,
         api_key: config.api_key,
       }
 

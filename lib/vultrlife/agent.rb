@@ -59,30 +59,26 @@ module Vultrlife
       self.http_get('/v1/server/list', api_key: api_key)
     end
 
-    def self.post_create(option)
-      #/v1/server/create
-      #POST - account
-
-      endpoint = "/v1/server/create"
-
-      body =  "DCID=#{option[:region]}"
-      body << "&VPSPLANID=#{option[:plan]}"
-      body << "&OSID=#{option[:os]}"
-      if option[:ipxe_chain_url]
-        body << "&ipxe_chain_url=#{option[:ipxe_chain_url]}"
-      end
+    def self.http_post(endpoint, body)
       response = ''
+
+      api_key = body.delete(:api_key)
 
       uri = URI.parse("#{API_HOST}#{endpoint}")
       https = Net::HTTP.new(uri.host, 443)
       https.use_ssl = true
       https.start{|https|
-        https.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        header = {}
-        response = https.post(uri.path + "?api_key=#{option[:api_key]}", body, header)
+        response = https.post("#{uri.path}?api_key=#{api_key}",query(body)[1..-1],{})
       }
 
       JSON.parse(response.body)
+    end
+
+    def self.post_create(body)
+      #/v1/server/create
+      #POST - account
+
+      self.http_post('/v1/server/create', body)
     end
 
     def self.post_destroy(option)

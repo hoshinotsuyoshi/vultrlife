@@ -120,7 +120,7 @@ describe Vultrlife::Agent do
           .with(body: data)
           .to_return(body: %q{{"SUBID" : "1312965"}})
 
-          option = {plan: 31, region: 25, os: 127, api_key: 'APIKEY'}
+          option = {DCID: 25, VPSPLANID: 31, OSID: 127, api_key: 'APIKEY'}
           response = Vultrlife::Agent.post_create(option)
           expect(response).to eq(
             {'SUBID' => '1312965'}
@@ -140,7 +140,7 @@ describe Vultrlife::Agent do
           .with(body: data)
           .to_return(body: %q{{"SUBID" : "1312965"}})
 
-          option = {plan: 52, region: 25, os: 159, api_key: 'APIKEY', ipxe_chain_url: 'http://example.com/script.txt'}
+          option = {DCID: 25, VPSPLANID: 52, OSID: 159, api_key: 'APIKEY', ipxe_chain_url: 'http://example.com/script.txt'}
           response = Vultrlife::Agent.post_create(option)
           expect(response).to eq(
             {'SUBID' => '1312965'}
