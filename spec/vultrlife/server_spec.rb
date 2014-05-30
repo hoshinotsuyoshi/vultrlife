@@ -27,7 +27,7 @@ describe Vultrlife::Server do
                         "gateway_v4"=>"108.61.223.1",
                         "power_status"=>"running"}
         }
-        Vultrlife::Agent.should_receive(:fetch_server_list).with('APIKEY').and_return(server_hash)
+        Vultrlife::Agent.should_receive(:server_list).with('APIKEY').and_return(server_hash)
 
         servers = Vultrlife::Server.show_servers(account)
         expect(servers.size).to eq 1
@@ -51,7 +51,7 @@ describe Vultrlife::Server do
         end
         server  = Vultrlife::Server.new('111111', account)
 
-        Vultrlife::Agent.should_receive(:post_destroy).with(SUBID: '111111', api_key: 'API_KEY')
+        Vultrlife::Agent.should_receive(:server_destroy).with(SUBID: '111111', api_key: 'API_KEY')
         expect(server.destroy!).to eq '111111'
         expect(server).to be_destroyed
       end
@@ -93,10 +93,10 @@ describe Vultrlife::Server do
       context 'the instance has a valid specific @plan, @region, @os' do
         it 'check plans, availability, region' do
           Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
-          Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
-          Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
-          Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
-          Vultrlife::Agent.should_receive(:post_create).with(VPSPLANID: 31, DCID: 25, OSID: 127, api_key: 'API_KEY').and_return("SUBID" => "1312965")
+          Vultrlife::Agent.should_receive(:regions_list).and_return(v1_regions)
+          Vultrlife::Agent.should_receive(:os_list).and_return(v1_os)
+          Vultrlife::Agent.should_receive(:regions_availability).with('25').and_return(v1_availability_of_tokyo)
+          Vultrlife::Agent.should_receive(:server_create).with(VPSPLANID: 31, DCID: 25, OSID: 127, api_key: 'API_KEY').and_return("SUBID" => "1312965")
 
           server = Vultrlife::Server.create!(centos_config)
           expect(server.subid).to eq(1312965)
@@ -123,10 +123,10 @@ describe Vultrlife::Server do
       context 'the instance has a valid specific @plan, @region, @os' do
         it 'check plans, availability, region' do
           Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
-          Vultrlife::Agent.should_receive(:fetch_all_regions).and_return(v1_regions)
-          Vultrlife::Agent.should_receive(:fetch_all_oss).and_return(v1_os)
-          Vultrlife::Agent.should_receive(:fetch_availability).with('25').and_return(v1_availability_of_tokyo)
-          Vultrlife::Agent.should_receive(:post_create)
+          Vultrlife::Agent.should_receive(:regions_list).and_return(v1_regions)
+          Vultrlife::Agent.should_receive(:os_list).and_return(v1_os)
+          Vultrlife::Agent.should_receive(:regions_availability).with('25').and_return(v1_availability_of_tokyo)
+          Vultrlife::Agent.should_receive(:server_create)
           .with(VPSPLANID: 52, DCID: 25, OSID: 159, api_key: 'API_KEY',ipxe_chain_url: 'http://example.com/script.txt')
           .and_return("SUBID" => "1312965")
 

@@ -19,7 +19,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.fetch_all_regions' do
+  describe '.regions_list' do
     context 'when API responds normally' do
       let(:v1_regions) do
         File.read('spec/fixtures/v1_regions.json')
@@ -29,7 +29,7 @@ describe Vultrlife::Agent do
         WebMock.stub_request(:get, 'https://api.vultr.com/v1/regions/list')
         .to_return(:body => v1_regions)
 
-        response = Vultrlife::Agent.fetch_all_regions
+        response = Vultrlife::Agent.regions_list
         expect(response.keys.sort).to eq(
           %w(1 19 2 24 25 3 4 5 6 7 8 9)
         )
@@ -37,7 +37,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.fetch_all_oss' do
+  describe '.os_list' do
     context 'when API responds normally' do
       let(:v1_os) do
         File.read('spec/fixtures/v1_os.json')
@@ -47,7 +47,7 @@ describe Vultrlife::Agent do
         WebMock.stub_request(:get, 'https://api.vultr.com/v1/os/list')
         .to_return(:body => v1_os)
 
-        response = Vultrlife::Agent.fetch_all_oss
+        response = Vultrlife::Agent.os_list
         expect(response.keys.sort).to eq(
           %w(124 127 128 129 131 138 139 140 147 148 149 150 151 152 159 160 161 162 163 164)
         )
@@ -55,7 +55,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.fetch_availability' do
+  describe '.regions_availability' do
     context 'when API responds normally' do
       let(:v1_availability_of_tokyo) do
         File.read('spec/fixtures/v1_availability_of_tokyo.json')
@@ -65,7 +65,7 @@ describe Vultrlife::Agent do
         WebMock.stub_request(:get, 'https://api.vultr.com/v1/regions/availability?DCID=25')
         .to_return(:body => v1_availability_of_tokyo)
 
-        response = Vultrlife::Agent.fetch_availability('25') # 25 -> tokyo
+        response = Vultrlife::Agent.regions_availability('25') # 25 -> tokyo
         expect(response.sort).to eq(
           %w(31 32 33 34 47 48 49 50 51 52 53 54 55 8)
         )
@@ -73,7 +73,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.fetch_server_list' do
+  describe '.server_list' do
     context 'when API responds normally' do
       let(:v1_server_list) do
         File.read('spec/fixtures/v1_server_list.json')
@@ -83,7 +83,7 @@ describe Vultrlife::Agent do
         WebMock.stub_request(:get, 'https://api.vultr.com/v1/server/list?api_key=APIKEY')
         .to_return(body: v1_server_list)
 
-        response = Vultrlife::Agent.fetch_server_list('APIKEY')
+        response = Vultrlife::Agent.server_list('APIKEY')
         expect(response).to eq(
           {
             "1356876" => {
@@ -109,7 +109,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.post_create' do
+  describe '.server_create' do
     context 'given valid option' do
       context 'when API responds normally' do
         it 'returns server\'s sub_id(Hash)' do
@@ -121,7 +121,7 @@ describe Vultrlife::Agent do
           .to_return(body: %q{{"SUBID" : "1312965"}})
 
           option = {DCID: 25, VPSPLANID: 31, OSID: 127, api_key: 'APIKEY'}
-          response = Vultrlife::Agent.post_create(option)
+          response = Vultrlife::Agent.server_create(option)
           expect(response).to eq(
             {'SUBID' => '1312965'}
           )
@@ -141,7 +141,7 @@ describe Vultrlife::Agent do
           .to_return(body: %q{{"SUBID" : "1312965"}})
 
           option = {DCID: 25, VPSPLANID: 52, OSID: 159, api_key: 'APIKEY', ipxe_chain_url: 'http://example.com/script.txt'}
-          response = Vultrlife::Agent.post_create(option)
+          response = Vultrlife::Agent.server_create(option)
           expect(response).to eq(
             {'SUBID' => '1312965'}
           )
@@ -150,7 +150,7 @@ describe Vultrlife::Agent do
     end
   end
 
-  describe '.post_destroy' do
+  describe '.server_destroy' do
     context 'given valid option' do
       context 'when API responds normally server\'s "" with status 200' do
         it 'returns ""' do
@@ -159,7 +159,7 @@ describe Vultrlife::Agent do
           .to_return(status: 200, body: '')
 
           option = {SUBID: '111111', api_key: 'APIKEY'}
-          response = Vultrlife::Agent.post_destroy(option)
+          response = Vultrlife::Agent.server_destroy(option)
           expect(response).to eq(
             ''
           )
