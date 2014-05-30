@@ -14,7 +14,7 @@ module Vultrlife
       https = Net::HTTP.new(uri.host, 443)
       https.use_ssl = true
       https.start{|https|
-        response = https.get(uri.path + query(params))
+        response = https.get(uri.path + '?'+ query(params))
       }
 
       JSON.parse(response.body)
@@ -67,7 +67,7 @@ module Vultrlife
       https = Net::HTTP.new(uri.host, 443)
       https.use_ssl = true
       https.start{|https|
-        response = https.post("#{uri.path}?api_key=#{api_key}",query(body)[1..-1],{})
+        response = https.post("#{uri.path}?api_key=#{api_key}",query(body))
       }
 
       if response.body.nil? && response.code == '200'
@@ -95,7 +95,7 @@ module Vultrlife
 
     def self.query(option)
       return '' if option.empty?
-      '?' + option.map{|e| e.join '='}.join('&')
+      option.map{|e| e.join '='}.join('&')
     end
   end
 end
