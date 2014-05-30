@@ -9,7 +9,7 @@ module Vultrlife
     end
 
     def destroy!
-      Agent.post_destroy(subid: @subid, api_key: @account.config.api_key)
+      Agent.post_destroy(SUBID: @subid, api_key: @account.config.api_key)
       self['destroyed'] = true
       @subid
     end

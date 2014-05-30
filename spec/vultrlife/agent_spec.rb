@@ -158,7 +158,7 @@ describe Vultrlife::Agent do
           .with(body: 'SUBID=111111')
           .to_return(status: 200, body: '')
 
-          option = {subid: '111111', api_key: 'APIKEY'}
+          option = {SUBID: '111111', api_key: 'APIKEY'}
           response = Vultrlife::Agent.post_destroy(option)
           expect(response).to eq(
             ''

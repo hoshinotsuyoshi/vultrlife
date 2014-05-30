@@ -5,10 +5,7 @@ module Vultrlife
   module Agent
     API_HOST = 'https://api.vultr.com'
 
-    def self.query(option)
-      return '' if option.empty?
-      '?' + option.map{|e| e.join '='}.join('&')
-    end
+    # GET
 
     def self.http_get(endpoint, params={})
       response = ''
@@ -59,6 +56,8 @@ module Vultrlife
       self.http_get('/v1/server/list', api_key: api_key)
     end
 
+    # POST
+
     def self.http_post(endpoint, body)
       response = ''
 
@@ -71,7 +70,11 @@ module Vultrlife
         response = https.post("#{uri.path}?api_key=#{api_key}",query(body)[1..-1],{})
       }
 
-      JSON.parse(response.body)
+      if response.body.nil? && response.code == '200'
+        ''
+      else
+        JSON.parse(response.body)
+      end
     end
 
     def self.post_create(body)
@@ -81,29 +84,18 @@ module Vultrlife
       self.http_post('/v1/server/create', body)
     end
 
-    def self.post_destroy(option)
+    def self.post_destroy(body)
       #/v1/server/destroy
       #POST - account
 
-      endpoint = "/v1/server/destroy"
+      self.http_post('/v1/server/destroy', body)
+    end
 
-      body =  "SUBID=#{option[:subid]}"
-      response = ''
+    # helper
 
-      uri = URI.parse("#{API_HOST}#{endpoint}")
-      https = Net::HTTP.new(uri.host, 443)
-      https.use_ssl = true
-      https.start{|https|
-        https.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        header = {}
-        response = https.post(uri.path + "?api_key=#{option[:api_key]}", body, header)
-      }
-
-      if response.body.nil? && response.code == '200'
-        ''
-      else
-        JSON.parse(response.body)
-      end
+    def self.query(option)
+      return '' if option.empty?
+      '?' + option.map{|e| e.join '='}.join('&')
     end
   end
 end

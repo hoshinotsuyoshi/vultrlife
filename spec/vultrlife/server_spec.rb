@@ -51,7 +51,7 @@ describe Vultrlife::Server do
         end
         server  = Vultrlife::Server.new('111111', account)
 
-        Vultrlife::Agent.should_receive(:post_destroy).with(subid: '111111', api_key: 'API_KEY')
+        Vultrlife::Agent.should_receive(:post_destroy).with(SUBID: '111111', api_key: 'API_KEY')
         expect(server.destroy!).to eq '111111'
         expect(server).to be_destroyed
       end
