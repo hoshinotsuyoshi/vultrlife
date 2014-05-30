@@ -94,7 +94,11 @@ module Vultrlife
         response = https.post(uri.path + "?api_key=#{option[:api_key]}", body, header)
       }
 
-      JSON.parse(response.body)
+      if response.body.nil? && response.code == '200'
+        ''
+      else
+        JSON.parse(response.body)
+      end
     end
   end
 end
