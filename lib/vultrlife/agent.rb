@@ -17,7 +17,11 @@ module Vultrlife
         response = https.get(uri.path + '?'+ query(params))
       }
 
-      JSON.parse(response.body)
+      if response.body.to_s.empty?
+        ''
+      else
+        JSON.parse(response.body)
+      end
     end
 
     def self.plans_list
@@ -70,7 +74,7 @@ module Vultrlife
         response = https.post("#{uri.path}?api_key=#{api_key}",query(body))
       }
 
-      if response.body.nil? && response.code == '200'
+      if response.body.to_s.empty?
         ''
       else
         JSON.parse(response.body)
