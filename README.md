@@ -19,23 +19,29 @@ Or install it yourself as:
 
 ## Usage
 
+### Create/Destroy Server
+
 ```
 require 'vultrlife'
 
+# Create Your Account Object
 account = Vultrlife::Account.new.configure do |config|
   config.api_key = xxxxxxxxxxxxxxxxxxx
 end
 
-raise if account.servers.size.nonzero?
+# Check Your Servers
+puts account.servers
 
+# Order A Server
 server = account.server_create! do |server|
-  server.region = :tokyo
-  server.plan   = :starter
-  server.os     = :custom
+  server.plan           = '768 MB RAM,15 GB SSD,0.10 TB BW, Custom ISO'
+  server.region         = :tokyo
+  server.os             = 'Custom'
   server.ipxe_chain_url = 'http://......'
 end
 
-account.servers
+# Check Your Servers
+puts account.servers
 ```
 
 ## Contributing
