@@ -42,6 +42,9 @@ end
 
 # Check Your Servers
 puts account.servers
+
+# Destroy A Server
+account.servers.first.destroy!
 ```
 
 ## Contributing
