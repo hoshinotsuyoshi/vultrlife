@@ -5,6 +5,7 @@ Vultr VPS API wrapper
 [![travis-batch](https://travis-ci.org/hoshinotsuyoshi/vultrlife.svg)](https://travis-ci.org/hoshinotsuyoshi/vultrlife)
 [![Gem Version](https://badge.fury.io/rb/vultrlife.svg)](http://badge.fury.io/rb/vultrlife)
 [![Coverage Status](https://img.shields.io/coveralls/hoshinotsuyoshi/vultrlife.svg)](https://coveralls.io/r/hoshinotsuyoshi/vultrlife)
+[![Code Climate](https://codeclimate.com/github/hoshinotsuyoshi/vultrlife.png)](https://codeclimate.com/github/hoshinotsuyoshi/vultrlife)
 
 ## Installation
 
