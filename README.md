@@ -25,8 +25,8 @@ Or install it yourself as:
 require 'vultrlife'
 
 # Create Your Account Object
-account = Vultrlife::Account.new.configure do |config|
-  config.api_key = 'xxxxxxxxxxxxxxxxxxx'
+account = Vultrlife::Account.new do |account|
+  account.api_key = 'xxxxxxxxxxxxxxxxxxx'
 end
 
 # Check Your Servers
@@ -79,7 +79,32 @@ Vultrlife::Agent.os_list
 #Same as API: GET /v1/os/list
 
 Vultrlife::Agent.regions_availability(dcid)
-Same as API: GET /v1/regions/availability
+#Same as API: GET /v1/regions/availability
+
+```
+
+## Support API
+```
+#GET /v1/plans/list
+Vultrlife::Agent.plans_list
+
+#GET /v1/regions/list
+Vultrlife::Agent.regions_list
+
+#GET /v1/os/list
+Vultrlife::Agent.os_list
+
+#GET /v1/regions/availability
+Vultrlife::Agent.regions_availability(dcid)
+
+#GET /v1/server/list (needs api_key)
+Vultrlife::Agent.server_list(api_key)
+
+#POST /v1/server/create (needs api_key)
+Vultrlife::Agent.server_create(body)
+
+#POST /v1/server/destroy (needs api_key)
+Vultrlife::Agent.server_destroy(body)
 
 ```
 
