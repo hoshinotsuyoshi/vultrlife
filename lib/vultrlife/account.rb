@@ -1,4 +1,3 @@
-require 'vultrlife/account/configuration'
 module Vultrlife
   class Account
     attr_reader :config
