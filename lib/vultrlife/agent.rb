@@ -49,7 +49,7 @@ module Vultrlife
       #/v1/regions/availability
       #GET - public
 
-      self.http_get('/v1/regions/availability', DCID: dcid)
+      self.http_get('/v1/regions/availability', DCID: dcid.to_s)
       .map(&:to_s)
     end
 
