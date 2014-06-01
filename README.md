@@ -2,7 +2,7 @@
 
 Vultr VPS API wrapper
 
-![travis-batch](https://travis-ci.org/hoshinotsuyoshi/vultrlife.svg?branch=master)
+[![travis-batch](https://travis-ci.org/hoshinotsuyoshi/vultrlife.svg)](https://travis-ci.org/hoshinotsuyoshi/vultrlife)
 [![Gem Version](https://badge.fury.io/rb/vultrlife.svg)](http://badge.fury.io/rb/vultrlife)
 
 ## Installation
