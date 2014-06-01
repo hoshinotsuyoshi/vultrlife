@@ -95,7 +95,7 @@ describe Vultrlife::Server do
           Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:regions_list).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:os_list).and_return(v1_os)
-          Vultrlife::Agent.should_receive(:regions_availability).with('25').and_return(v1_availability_of_tokyo)
+          Vultrlife::Agent.should_receive(:regions_availability).with(25).and_return(v1_availability_of_tokyo)
           Vultrlife::Agent.should_receive(:server_create).with(VPSPLANID: 31, DCID: 25, OSID: 127, api_key: 'API_KEY').and_return("SUBID" => "1312965")
 
           server = Vultrlife::Server.create!(centos_config)
@@ -125,7 +125,7 @@ describe Vultrlife::Server do
           Vultrlife::Agent.should_receive(:plans_list).and_return(v1_plans)
           Vultrlife::Agent.should_receive(:regions_list).and_return(v1_regions)
           Vultrlife::Agent.should_receive(:os_list).and_return(v1_os)
-          Vultrlife::Agent.should_receive(:regions_availability).with('25').and_return(v1_availability_of_tokyo)
+          Vultrlife::Agent.should_receive(:regions_availability).with(25).and_return(v1_availability_of_tokyo)
           Vultrlife::Agent.should_receive(:server_create)
           .with(VPSPLANID: 52, DCID: 25, OSID: 159, api_key: 'API_KEY',ipxe_chain_url: 'http://example.com/script.txt')
           .and_return("SUBID" => "1312965")
