@@ -2,8 +2,9 @@
 
 Vultr VPS API wrapper
 
+![travis-batch](https://travis-ci.org/hoshinotsuyoshi/vultrlife.svg?branch=master)
+
 ## Installation
-### *this does not work yet*
 
 Add this line to your application's Gemfile:
 
@@ -107,6 +108,9 @@ Vultrlife::Agent.server_create(body)
 Vultrlife::Agent.server_destroy(body)
 
 ```
+
+## Requirement
+* MRI(>=1.9.3)
 
 ## Contributing
 
