@@ -19,37 +19,67 @@ Or install it yourself as:
 
 ## Usage
 
+### Create/Destroy Server
+
 ```
 require 'vultrlife'
 
+# Create Your Account Object
 account = Vultrlife::Account.new.configure do |config|
-  config.api_key = xxxxxxxxxxxxxxxxxxx
+  config.api_key = 'xxxxxxxxxxxxxxxxxxx'
 end
 
-raise if account.servers.size.nonzero?
+# Check Your Servers
+puts account.servers
+# => [] (if you have no servers)
 
-server = account.server_create! do |server|
-  server.region = :tokyo
-  server.plan   = :starter
-  server.os     = :custom
-  server.ipxe_chain_url = 'http://......'
-
-  server.verify_plan do |verify|
-    verify.costs_at_most = 7
-    verify.vcpu_count    = 1
-    verify.ram           = 1024
-    verify.disk          = 30
-    verify.bandwidth     = 2
-  end
+# Create A Server(CentOS)
+account.server_create! do |server|
+  server.plan           = '768 MB RAM,15 GB SSD,0.10 TB BW'
+  server.region         = :tokyo
+  server.os             = 'CentOS 6 x64'
 end
 
-account.servers
+# Check The Server
+puts account.servers.last
+# => {"os"=>"CentOS 6 x64",
+# "ram"=>"768 MB",
+# "disk"=>"Virtual 15 GB",
+# "main_ip"=>"108.61.200.210",
+# "default_password"=>"eqsaqenynelu!2",
+# ...and more....
 
-
-# this feature is big....
-server.ssh do
-  'your awesome command...'
+# Create A Server(CustomOS)
+account.server_create! do |server|
+  server.plan           = '768 MB RAM,15 GB SSD,0.10 TB BW, Custom ISO'
+  server.region         = :tokyo
+  server.os             = 'Custom'
+  server.ipxe_chain_url = 'http://......' #(optional)
 end
+
+# Check Your Servers
+puts account.servers
+
+# Destroy A Server
+account.servers.first.destroy!
+```
+
+### List Plans/OSs/Regions/Plans_Regions_Availavility
+
+```
+require 'vultrlife'
+
+Vultrlife::Agent.plans_list
+#Same as API: GET /v1/plans/list
+
+Vultrlife::Agent.regions_list
+#Same as API: GET /v1/regions/list
+
+Vultrlife::Agent.os_list
+#Same as API: GET /v1/os/list
+
+Vultrlife::Agent.regions_availability(dcid)
+Same as API: GET /v1/regions/availability
 
 ```
 
