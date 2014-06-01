@@ -9,7 +9,7 @@ module Vultrlife
     end
 
     def destroy!
-      Agent.server_destroy(SUBID: @subid, api_key: @account.config.api_key)
+      Agent.server_destroy(SUBID: @subid, api_key: @account.api_key)
       self['destroyed'] = true
       @subid
     end
@@ -24,7 +24,7 @@ module Vultrlife
     end
 
     def self.show_servers(account)
-      servers = Agent.server_list(account.config.api_key)
+      servers = Agent.server_list(account.api_key)
       servers = servers.map do |subid, attributes|
         self.new(subid, account, attributes)
       end

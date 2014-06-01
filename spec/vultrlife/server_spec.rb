@@ -5,8 +5,8 @@ describe Vultrlife::Server do
   describe '.show_servers' do
     context 'when some servers exist' do
       let(:account) do
-        Vultrlife::Account.new.configure do |config|
-          config.api_key = 'APIKEY'
+        Vultrlife::Account.new do |account|
+          account.api_key = 'APIKEY'
         end
       end
       it 'returns Server array' do
@@ -46,8 +46,8 @@ describe Vultrlife::Server do
   describe '#destroy!' do
     context 'when successfully' do
       it 'returns subid' do
-        account = Vultrlife::Account.new.configure do |config|
-          config.api_key = 'API_KEY'
+        account = Vultrlife::Account.new do |account|
+          account.api_key = 'API_KEY'
         end
         server  = Vultrlife::Server.new('111111', account)
 
@@ -76,8 +76,8 @@ describe Vultrlife::Server do
     end
 
     let(:centos_config) do
-      account = Vultrlife::Account.new.configure do |config|
-        config.api_key = 'API_KEY'
+      account = Vultrlife::Account.new do |account|
+        account.api_key = 'API_KEY'
       end
       centos_config = Vultrlife::Server::Configuration.new(account)
       centos_config.instance_eval do
@@ -105,8 +105,8 @@ describe Vultrlife::Server do
     end
 
     let(:custom_os_config) do
-      account = Vultrlife::Account.new.configure do |config|
-        config.api_key = 'API_KEY'
+      account = Vultrlife::Account.new do |account|
+        account.api_key = 'API_KEY'
       end
       custom_os_config = Vultrlife::Server::Configuration.new(account)
       custom_os_config.instance_eval do
