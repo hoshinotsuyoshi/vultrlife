@@ -2,17 +2,17 @@ require 'vultrlife/account/configuration'
 module Vultrlife
   class Account
     attr_reader :config
-    def initialize
-      @config  = Configuration.new
+    attr_accessor :api_key
+    def initialize(&b)
+      @api_key = ''
+      if block_given?
+        yield self
+      end
+      self
     end
 
     def servers
       Server.show_servers(self)
-    end
-
-    def configure(&b)
-      yield @config
-      self
     end
 
     def server_create!(&b)

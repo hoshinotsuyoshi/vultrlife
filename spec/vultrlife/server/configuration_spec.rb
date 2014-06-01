@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Vultrlife::Server::Configuration do
   let(:config) do
 
-    account = Vultrlife::Account.new.configure do |config|
-    end
+    account = Vultrlife::Account.new
 
     Vultrlife::Server::Configuration.new(account)
   end
@@ -64,7 +63,7 @@ describe Vultrlife::Server::Configuration do
           config.api_key = 'API_KEY'
         end.to change {
           config.instance_variable_get(:@api_key)
-        }.from(nil).to('API_KEY')
+        }.from('').to('API_KEY')
       end
     end
   end
