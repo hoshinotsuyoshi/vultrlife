@@ -1,3 +1,5 @@
 vendor/bundle
 .bundle/
 pkg/
+.coveralls.yml
+coverage
