@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vultrlife (0.0.1)
+    vultrlife (0.0.2)
 
 GEM
   remote: https://rubygems.org/
