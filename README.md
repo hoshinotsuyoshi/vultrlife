@@ -108,6 +108,9 @@ Vultrlife::Agent.server_destroy(body)
 
 ```
 
+## Requirement
+* MRI(>=1.9.3)
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/vultrlife/fork )
