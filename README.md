@@ -64,6 +64,25 @@ puts account.servers
 account.servers.first.destroy!
 ```
 
+### List Plans/OSs/Regions/Plans_Regions_Availavility
+
+```
+require 'vultrlife'
+
+Vultrlife::Agent.plans_list
+#Same as API: GET /v1/plans/list
+
+Vultrlife::Agent.regions_list
+#Same as API: GET /v1/regions/list
+
+Vultrlife::Agent.os_list
+#Same as API: GET /v1/os/list
+
+Vultrlife::Agent.regions_availability(dcid)
+Same as API: GET /v1/regions/availability
+
+```
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/vultrlife/fork )
