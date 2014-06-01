@@ -25,8 +25,8 @@ Or install it yourself as:
 require 'vultrlife'
 
 # Create Your Account Object
-account = Vultrlife::Account.new.configure do |config|
-  config.api_key = 'xxxxxxxxxxxxxxxxxxx'
+account = Vultrlife::Account.new do |account|
+  account.api_key = 'xxxxxxxxxxxxxxxxxxx'
 end
 
 # Check Your Servers
